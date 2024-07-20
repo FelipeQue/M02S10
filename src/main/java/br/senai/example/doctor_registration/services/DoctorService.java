@@ -9,6 +9,7 @@ import br.senai.example.doctor_registration.enums.EspecialidadeEnum;
 import br.senai.example.doctor_registration.repositories.DoctorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -68,6 +69,14 @@ public class DoctorService {
             return mapSummary(repository.findByNomeContainingIgnoreCase(
                     filtroNome, paginacao));
         }
+
+    }
+
+    public DoctorResponse buscar(Long id) {
+        DoctorEntity doctor = repository
+                .findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+        return map(doctor);
 
     }
 }

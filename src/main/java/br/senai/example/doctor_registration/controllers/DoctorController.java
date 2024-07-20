@@ -39,7 +39,12 @@ public class DoctorController {
             DoctorGetRequest filtros, Pageable paginacao
     ){
         return ResponseEntity.ok(doctorService.listar(filtros, paginacao));
+    }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public DoctorResponse buscar(@PathVariable Long id){
+        return doctorService.buscar(id);
     }
 
 
