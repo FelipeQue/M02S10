@@ -79,4 +79,11 @@ public class DoctorService {
         return map(doctor);
 
     }
+
+    public void remover(Long id) {
+        if (!repository.existsById(id)) {
+            throw new EntityNotFoundException("Não há nenhum registro com este identificador.");
+        }
+        repository.deleteById(id);
+    }
 }

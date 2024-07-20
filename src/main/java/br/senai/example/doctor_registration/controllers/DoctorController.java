@@ -47,5 +47,11 @@ public class DoctorController {
         return doctorService.buscar(id);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long id){
+        doctorService.remover(id);
+    }
+
 
 }
