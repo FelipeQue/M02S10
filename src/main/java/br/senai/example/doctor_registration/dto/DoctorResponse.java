@@ -2,44 +2,58 @@ package br.senai.example.doctor_registration.dto;
 
 import br.senai.example.doctor_registration.enums.EspecialidadeEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-public class DoctorRequest {
+public class DoctorResponse {
 
-    @NotBlank
+    private Long id;
     private String nome;
-
-    @NotBlank
     private String crm;
 
-    @JsonDeserialize
+    @JsonSerialize
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
-
     private String telefone;
 
-    @NotNull
     private EspecialidadeEnum especialidade;
 
-    public @NotBlank String getNome() {
+
+    public DoctorResponse(String nome, String crm, LocalDate dataNascimento, String telefone, EspecialidadeEnum especialidade) {
+        this.nome = nome;
+        this.crm = crm;
+        this.dataNascimento = dataNascimento;
+        this.telefone = telefone;
+        this.especialidade = especialidade;
+    }
+
+    public DoctorResponse() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
         return nome;
     }
 
-    public void setNome(@NotBlank String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public @NotBlank String getCrm() {
+    public String getCrm() {
         return crm;
     }
 
-    public void setCrm(@NotBlank String crm) {
+    public void setCrm(String crm) {
         this.crm = crm;
     }
 
@@ -59,11 +73,11 @@ public class DoctorRequest {
         this.telefone = telefone;
     }
 
-    public @NotNull EspecialidadeEnum getEspecialidade() {
+    public EspecialidadeEnum getEspecialidade() {
         return especialidade;
     }
 
-    public void setEspecialidade(@NotNull EspecialidadeEnum especialidade) {
+    public void setEspecialidade(EspecialidadeEnum especialidade) {
         this.especialidade = especialidade;
     }
 }
