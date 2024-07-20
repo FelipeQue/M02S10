@@ -23,5 +23,11 @@ public class DoctorController {
         doctorService.cadastrar(request);
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void atualizar(@PathVariable Long id, @RequestBody DoctorRequest request) {
+        doctorService.atualizar(id, request);
+    }
+
 
 }

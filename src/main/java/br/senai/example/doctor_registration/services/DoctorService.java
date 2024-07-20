@@ -1,7 +1,9 @@
 package br.senai.example.doctor_registration.services;
 
 import br.senai.example.doctor_registration.dto.DoctorRequest;
+import br.senai.example.doctor_registration.entities.DoctorEntity;
 import br.senai.example.doctor_registration.repositories.DoctorRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +26,17 @@ public class DoctorService {
     }
 
 
+    public void atualizar(Long id, DoctorRequest request) {
+        DoctorEntity doctor = repository
+                .findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        doctor.setNome(request.getNome());
+        doctor.setCrm(request.getCrm());
+        doctor.setDataNascimento(request.getDataNascimento());
+        doctor.setTelefone(request.getTelefone());
+        doctor.setEspecialidade(request.getEspecialidade());
+
+        repository.save(doctor);
+    }
 }
