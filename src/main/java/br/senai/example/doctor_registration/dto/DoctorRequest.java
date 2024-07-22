@@ -3,7 +3,6 @@ package br.senai.example.doctor_registration.dto;
 import br.senai.example.doctor_registration.enums.EspecialidadeEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

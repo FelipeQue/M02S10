@@ -1,20 +1,17 @@
 package br.senai.example.doctor_registration.services;
 
-import br.senai.example.doctor_registration.dto.DoctorGetRequest;
-import br.senai.example.doctor_registration.dto.DoctorRequest;
-import br.senai.example.doctor_registration.dto.DoctorResponse;
-import br.senai.example.doctor_registration.dto.DoctorSummaryResponse;
+import br.senai.example.doctor_registration.dto.*;
 import br.senai.example.doctor_registration.entities.DoctorEntity;
 import br.senai.example.doctor_registration.enums.EspecialidadeEnum;
 import br.senai.example.doctor_registration.repositories.DoctorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import static br.senai.example.doctor_registration.mappers.DoctorMapper.map;
 import static br.senai.example.doctor_registration.mappers.DoctorMapper.mapSummary;
@@ -40,6 +37,12 @@ public class DoctorService {
         DoctorEntity doctor = repository
                 .findById(id)
                 .orElseThrow(EntityNotFoundException::new);
+
+        if (!Objects.equals(doctor.getCrm(), request.getCrm())
+            && repository.existsByCrm(request.getCrm())
+        ) {
+            throw new DuplicateKeyException("Já existe outra pessoa médica com este número de CRM.");
+        }
 
         doctor.setNome(request.getNome());
         doctor.setCrm(request.getCrm());
